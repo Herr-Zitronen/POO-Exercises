@@ -2,7 +2,9 @@
 #include <vector>
 
 struct Rectangle{
-    int x1, x2, y1, y2;
+    //int x1, x2, y1, y2;
+    int x1, x2;
+    int y1, y2;
 };
 
 bool existeInterseccion(const Rectangle& A, const Rectangle& B){
