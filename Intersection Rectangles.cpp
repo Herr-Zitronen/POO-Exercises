@@ -2,7 +2,6 @@
 #include <vector>
 
 struct Rectangle{
-    
     int x1, x2;
     int y1, y2;
 };
