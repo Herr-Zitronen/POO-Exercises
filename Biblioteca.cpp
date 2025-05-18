@@ -112,7 +112,7 @@ class Biblioteca{
 
     string solicitarPista(){
         string pista;
-        cout << "Ingrese una pista (palabra) del titulo del libro a buscar." << endl;
+        cout << "Ingrese una pista (palabra) del titulo del libro a buscar: ";
         cin >> pista;
         return pista;
     }
@@ -156,6 +156,8 @@ class Biblioteca{
             }
         }
 
+        // arreglar despues, esta linea esta mal ubicada: Preguntara recursion antes de 
+        // evaluar que ya a terminado.
         bool solicitudRecursion = solicitarRecursion();
         
         if (solicitudRecursion && posiciones.size() != 1){
