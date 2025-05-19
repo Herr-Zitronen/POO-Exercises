@@ -28,6 +28,6 @@ bool existeInterseccion(const Rectangle& A, const Rectangle& B){
 }
 
 int main(){
-
+    
     return 0;
 }
