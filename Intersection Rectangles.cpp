@@ -1,9 +1,20 @@
 #include <iostream>
 #include <vector>
 
+using namespace std;
+
+
 struct Rectangle{
     int x1, x2;
     int y1, y2;
+
+    Rectangle(int a, int b, int c, int d){
+        x1 = a;
+        y1 = b;
+        x2= c;
+        y2 = d;
+    }
+    
 };
 
 bool existeInterseccion(const Rectangle& A, const Rectangle& B){
@@ -27,7 +38,15 @@ bool existeInterseccion(const Rectangle& A, const Rectangle& B){
     return (A.x1 < B.x2 && A.x2 > B.x1 && A.y1 < B.y2 && A.y2 > B.y1);
 }
 
+
 int main(){
     
+    Rectangle A(1, 1, 7, 10);
+    Rectangle B(3, 5, 10, 8);
+
+    cout << existeInterseccion(A, B);
+
+
+
     return 0;
 }
