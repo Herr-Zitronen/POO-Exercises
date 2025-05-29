@@ -50,7 +50,6 @@ class Libro {
     void cambiarEstadoPrestamo(){
         prestado = !prestado;
     }
-
 };
 
 class Cliente {
