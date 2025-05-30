@@ -1,16 +1,3 @@
-/*
-Cambios de v4: 
-- Se añadió la recursión en el método ejecutarBusquedaLibro().
-    - Se añadieron metodos para cumplir con la modularización
-- No se usa el size del array. Sino que se almacenan todos los indices con el metodo indicesTotales()
-    y se utiliza ese parámetro para inicar con la busqueda. En cada ciclo recursivo, se pasa como argumento
-    el vector Posiciones que contiene los indices seleccionados. 
-- El centinela de la recursión es la decisión del usuario para terminar la busqueda
-    o si el vector Posiciones solo contiene un elemento, lo que significa que ya no hay
-    más que buscar.
-
-*/
-
 #include <iostream>
 #include <vector>
 #include <string>
@@ -45,8 +32,6 @@ public:
     // Parametrizado
     Libro(string _titulo, string _autor) : titulo(_titulo), autor(_autor), prestado(false), tipo("") {}
     
-    virtual ~Libro() {}
-
     string getTitulo() const {return titulo;}
     string getAutor() const {return autor;}
     bool getPrestado() const {return prestado;}
@@ -141,7 +126,6 @@ public:
     }
 };
 
-// Biblioteca que guarda los libros
 class Biblioteca {
 private:
     vector<Libro*> catalogo; 
@@ -184,9 +168,13 @@ public:
         cin >> opcion;
         
         Libro* nuevoLibro = nullptr;
+        // puntero vacio para evitar problemas de memoria.
+        // Si no se inicializa, puede causar problemas al intentar acceder a sus métodos.
         
         if (opcion == 1) {
             nuevoLibro = new LibroFisico(titulo, autor);
+            // nuevoLibro = new LibroFisico(); 
+            // nuevoLibro->ingresarLibro(); 
         } else if (opcion == 2) {
             nuevoLibro = new LibroElectronico(titulo, autor);
         } else {
@@ -278,7 +266,6 @@ public:
     }
 
     void ejecutarPrestamo() {
-        cout << "Funcionalidad en desarrollo" << endl;
     }
 };
 
