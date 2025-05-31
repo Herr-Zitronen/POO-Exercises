@@ -169,9 +169,9 @@ public:
         
         Libro* nuevoLibro = nullptr;
         // puntero vacio para evitar problemas de memoria.
-        // Si no se inicializa, puede causar problemas al intentar acceder a sus métodos.
+        // Si no se inicializa, podria causar problemas al intentar al acceder.
         
-        if (opcion == 1) {
+        if (opcion == 1) { // no se realiza copia alguna. Se crea un nuevo objeto.
             nuevoLibro = new LibroFisico(titulo, autor);
             // nuevoLibro = new LibroFisico(); 
             // nuevoLibro->ingresarLibro(); 
