@@ -11,24 +11,12 @@ Gestor -> tareas.
     - Tareas en CSV
 
 
-
-
-
-
-
 ---
 
 Calendario APP
 
 clase: Calendario
 Clase: tarea -> Clase: Evento -> Clase: Reunión
-
-
-
-
-
-
-
 
 
 

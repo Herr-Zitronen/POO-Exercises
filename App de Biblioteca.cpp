@@ -4,32 +4,36 @@
 using namespace std;
 
 class Cliente {
+private:
+    string nombre, id;
 public:
-    void ingresarCliente(int id) {
-        cout << "Cliente con ID: " << id << " ingresado" << endl;
+
+    Cliente() : nombre(""), id("") {}
+
+    void leer(int _id){
+        id = to_string(_id);
+        cout << "Nombre: ";
+        cin >> nombre;
     }
     
-    void mostrar() {
-        cout << "Cliente mostrado" << endl;
+    void mostrar() const {
+        cout << "Nombre: " << nombre << "\nID: " << id << endl;
     }
 };
 
 
 class Libro {
-protected: // Atributos protegidos para que las clases derivadas puedan acceder
+protected:
+// getline() para crear el puntero de objeto Libro (nuevoLibro)
+
     string titulo;
     string autor;
     bool prestado;
-    string tipo; // Para distinguir entre físico y electrónico
-
+    string tipo; 
+    int numeroDePaginas;
 public:
-    Libro(){
-        titulo = autor = "";
-        prestado = false;
-        tipo = "";
-    }
+    Libro() : titulo(""), autor(""), prestado(false), tipo(""), numeroDePaginas(0) {}
     
-    // Parametrizado
     Libro(string _titulo, string _autor) : titulo(_titulo), autor(_autor), prestado(false), tipo("") {}
     
     string getTitulo() const {return titulo;}
@@ -41,46 +45,48 @@ public:
         tipo = _tipo;
     }
 
-    virtual void ingresarLibro(){
+    // Uso de virtual para sobreesacribir estos metodos
+
+    virtual void leer(){
         cout << "Ingrese título del libro: ";
         cin.ignore(); 
         getline(cin, titulo); 
         cout << "Ingrese autor del libro: ";
         getline(cin, autor);  
+        cout << "Ingrese número de páginas: ";
+        cin >> numeroDePaginas;
     }
 
     virtual void mostrar() const {
         cout << "-------***---------" << endl;
         cout << "Titulo: " << titulo << endl;
         cout << "Autor: " << autor << endl;
+        cout << "Número de Paginas: " << numeroDePaginas << endl;
         cout << (prestado ? "Prestado" : "Disponible") << endl;
     }
-
+    
+    virtual void pedirDatosEspecificos() {} 
+    // Esto es necesario por el trabajo con el puntero Libro*, donde este accede al metodo de Libro
+    // Pues este metodo esta con override para que Libro* acceda al metodo de acuerdo a la asginacion new.
+    
+    
+    // Método debe ser protected.
     void cambiarEstadoPrestamo(){
         prestado = !prestado;
     }
-    
-    virtual void pedirDatosEspecificos() {}  
 };
 
-// Clase derivada
+
 class LibroFisico : public Libro {
 private:
-    int numPaginas;
     string ubicacion;
-
 public:
-    LibroFisico() : Libro(), numPaginas(0), ubicacion("") {
-        tipo = "Físico";
-    }
+    LibroFisico() : Libro(), ubicacion("") {tipo = "Fisico";}
     
-    LibroFisico(string _titulo, string _autor) : Libro(_titulo, _autor), numPaginas(0), ubicacion("") {
-        tipo = "Físico";
-    }
+    LibroFisico(string _titulo, string _autor) : Libro(_titulo, _autor), ubicacion("") {tipo = "Físico";}
     
     void pedirDatosEspecificos() override {
-        cout << "Ingrese número de páginas: ";
-        cin >> numPaginas;
+        leer();
         cin.ignore();
         cout << "Ingrese ubicación física (estante): ";
         getline(cin, ubicacion);
@@ -89,13 +95,12 @@ public:
     void mostrar() const override {
         Libro::mostrar();
         cout << "Tipo: Libro Físico" << endl;
-        cout << "Páginas: " << numPaginas << endl;
         cout << "Ubicación: " << ubicacion << endl;
         cout << "----------------" << endl;
     }
 };
 
-// Clase derivada
+
 class LibroElectronico : public Libro {
 private:
     string formato;
@@ -111,6 +116,7 @@ public:
     }
     
     void pedirDatosEspecificos() override {
+        leer();
         cout << "Ingrese formato del libro (PDF, EPUB, etc.): ";
         cin >> formato;
         cout << "Ingrese tamaño en MB: ";
@@ -140,7 +146,6 @@ public:
 
 // Este destructor (~Biblioteca) se encarga de liberar la memoria dinámica
 // que fue asignada a los objetos apuntados por los punteros almacenados en 'catalogo'.
-// 'catalogo' es probablemente un contenedor (como std::vector) de punteros a objetos.
 // El ciclo for recorre cada puntero y usa 'delete' para liberar la memoria de cada objeto.
 // Esto previene fugas de memoria (memory leaks), asegurando que toda la memoria reservada
 // dinámicamente se libere cuando el objeto Biblioteca se destruya.
@@ -148,7 +153,7 @@ public:
     void addUsuario() {
         int size = usuario.size();
         usuario.emplace_back();
-        usuario.at(size).ingresarCliente(size + 1);
+        usuario.at(size).leer(size + 1);
     }
 
     void addLibro() {
@@ -168,13 +173,13 @@ public:
         cin >> opcion;
         
         Libro* nuevoLibro = nullptr;
-        // puntero vacio para evitar problemas de memoria.
+        // puntero vacio.
         // Si no se inicializa, podria causar problemas al intentar al acceder.
         
         if (opcion == 1) { // no se realiza copia alguna. Se crea un nuevo objeto.
             nuevoLibro = new LibroFisico(titulo, autor);
             // nuevoLibro = new LibroFisico(); 
-            // nuevoLibro->ingresarLibro(); 
+            // nuevoLibro->leer(); 
         } else if (opcion == 2) {
             nuevoLibro = new LibroElectronico(titulo, autor);
         } else {
@@ -187,7 +192,7 @@ public:
     }
 
     void mostrarUsuarios() {
-        for (Cliente& user : usuario) {
+        for (const Cliente& user : usuario) {
             user.mostrar();
         }
     }
