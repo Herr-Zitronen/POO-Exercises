@@ -151,9 +151,11 @@ public:
 // dinámicamente se libere cuando el objeto Biblioteca se destruya.
 
     void addUsuario() {
-        int size = usuario.size();
+        // int size = usuario.size();
+        // usuario.emplace_back();
+        // usuario.at(size).leer(size + 1);
         usuario.emplace_back();
-        usuario.at(size).leer(size + 1);
+        usuario.back().leer(usuario.size());
     }
 
     void addLibro() {
@@ -191,7 +193,7 @@ public:
         catalogo.push_back(nuevoLibro);
     }
 
-    void mostrarUsuarios() {
+    void mostrarUsuarios() const {
         for (const Cliente& user : usuario) {
             user.mostrar();
         }
@@ -203,7 +205,7 @@ public:
         }
     }
 
-    string solicitarPista() {
+    string solicitarPista() const {
         string pista;
         cout << "Ingrese una pista (palabra) del titulo del libro a buscar: ";
         cin >> pista;
@@ -216,14 +218,14 @@ public:
         cout << "Tipo: " << catalogo[indice]->getTipo() << endl;
     }
 
-    bool solicitarRecursion() {
+    bool solicitarRecursion() const {
         bool res;
         cout << "Desea seguir buscando (filtrar)? (0. No / 1. Si): ";
         cin >> res;
         return res;
     }
 
-    vector<int> ejecutarBusquedaLibro(vector<int> indices) { 
+    vector<int> ejecutarBusquedaLibro(vector<int> indices) const { 
         vector<int> posiciones; 
         string pista = solicitarPista();
 
@@ -251,7 +253,7 @@ public:
         return indices;
     }
 
-    void buscarLibro() {
+    void buscarLibro() const {
         if (catalogo.empty()) {
             cout << "No hay libros en el catálogo." << endl;
             return;
@@ -278,7 +280,7 @@ class Interfaz {
 private:
     Biblioteca biblo;
 
-    void mostrarMenuAcciones() {
+    void mostrarMenuAcciones() const {
         cout << "\n=== SISTEMA DE BIBLIOTECA ===" << endl;
         cout << "Menu:" << endl;
         cout << "0. Salir" << endl;
@@ -291,7 +293,7 @@ private:
         cout << "=========================" << endl;
     }
 
-    int pedirAccion() {
+    int pedirAccion() const {
         int op;
         cout << "\nIngrese una opcion: ";
         cin >> op;
