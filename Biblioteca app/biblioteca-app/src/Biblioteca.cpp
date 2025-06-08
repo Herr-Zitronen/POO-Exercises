@@ -5,7 +5,6 @@
 #include "LibroElectronico.h"
 using namespace std;
 
-
 Biblioteca::~Biblioteca(){
     for (auto ptr : catalogo) {
         delete ptr;
@@ -18,7 +17,6 @@ void Biblioteca::addUsuario() {
 }
 
 void Biblioteca::addLibro() {
-    
     cout << "¿Qué tipo de libro desea crear?" << endl;
     cout << "1. Libro Físico" << endl;
     cout << "2. Libro Electrónico" << endl;

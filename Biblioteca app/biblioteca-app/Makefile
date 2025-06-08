@@ -2,7 +2,7 @@ CC = g++
 CFLAGS = -Wall -g
 SRC = src/main.cpp src/Cliente.cpp src/Libro.cpp src/LibroFisico.cpp src/LibroElectronico.cpp src/Biblioteca.cpp src/Interfaz.cpp
 OBJ = $(SRC:.cpp=.o)
-TARGET = biblioteca-app
+TARGET = bin/biblioteca-app
 
 all: $(TARGET)
 

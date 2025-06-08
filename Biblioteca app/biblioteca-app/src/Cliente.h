@@ -3,12 +3,11 @@
 
 #include <iostream>
 #include <string>
-using namespace std;
 
 class Cliente {
 private:
-    string nombre;
-    string id;
+    std::string nombre;
+    std::string id;
 
 public:
     Cliente();
