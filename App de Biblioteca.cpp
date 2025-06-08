@@ -327,6 +327,7 @@ private:
                 cout << "Opción no valida." << endl;
                 break;
             }
+
             mostrarMenuAcciones();
             op = pedirAccion();
         }
