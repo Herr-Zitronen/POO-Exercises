@@ -18,14 +18,6 @@ void Biblioteca::addUsuario() {
 }
 
 void Biblioteca::addLibro() {
-    string titulo, autor;
-    
-    cout << "Ingrese título del libro: ";
-    cin.ignore();
-    getline(cin, titulo);
-    
-    cout << "Ingrese autor del libro: ";
-    getline(cin, autor);
     
     cout << "¿Qué tipo de libro desea crear?" << endl;
     cout << "1. Libro Físico" << endl;
@@ -36,9 +28,9 @@ void Biblioteca::addLibro() {
     Libro* nuevoLibro = nullptr;
     
     if (opcion == 1) {
-        nuevoLibro = new LibroFisico(titulo, autor);
-    } else if (opcion == 2) {
-        nuevoLibro = new LibroElectronico(titulo, autor);
+        nuevoLibro = new LibroFisico();
+    }else if (opcion == 2) {
+        nuevoLibro = new LibroElectronico();
     } else {
         cout << "Opción no válida. No se ha creado el libro." << endl;
         return;

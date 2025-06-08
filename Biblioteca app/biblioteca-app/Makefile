@@ -12,6 +12,9 @@ $(TARGET):
 #%.o: %.cpp
 #$(CC) $(CFLAGS) -c $< -o $@
 
+run : $(TARGET)
+	./$(TARGET)
+
 # Usa CMD por defecto:
 clean:
 	del /f /q $(TARGET).exe
